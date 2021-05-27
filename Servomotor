@@ -1,0 +1,28 @@
+#include <Servo.h>
+#include <LiquidCrystal.h>
+
+
+LiquidCrystal lcd(12, 11,  5,   4,   3,   2);
+Servo motor;
+
+float grad;
+
+void setup()
+{
+  Serial.begin(9600);
+  motor.attach(A1);
+  motor.write(0);
+  
+  lcd.begin(16, 2);
+}
+
+void loop()
+{
+  grad= map (analogRead(A5),0,1023,0,180);
+  motor.write(grad);
+  lcd.setCursor(0,0);
+ lcd.print("Servo Posicion: ");
+  lcd.setCursor(0,1);
+  lcd.print(grad); 
+  delay (500);
+}
